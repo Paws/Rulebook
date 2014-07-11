@@ -1,0 +1,39 @@
+Availability of infrastructure:
+ - name: "Combination of the 'infrastructure' key against the default-receiver will result"
+   body: |
+      infrastructure;
+      
+      pass[];
+   eventually: fail
+ 
+ - name: "Combination of a non-existent key against the default-receiver will not result"
+   body: |
+      jabberwocky;
+      
+      fail[];
+   eventually: pass
+ 
+ - name: "Combination of a known `label`-y key against the infrastructure-receiver will result"
+   body: |
+      infrastructure empty;
+      
+      pass[];
+   eventually: fail
+ 
+ - name: "Combination of self with the result of the infrastructure-receiver will itself result"
+   note: >
+      This implies the result is an execution, because there would be no lookup-match for the
+      current execution on any resultant object. An *execution* on the other hand, might accept the
+      caller, and result.
+   body: |
+      infrastructure empty[];
+      
+      pass[];
+   eventually: fail
+ 
+ - name: "Result of combo with infrastructure-receiver is stageable"
+   body: |
+      expect stageable [infrastructure empty];
+      
+      pass[];
+   eventually: fail
