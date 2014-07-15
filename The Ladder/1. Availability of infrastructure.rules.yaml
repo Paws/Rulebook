@@ -33,7 +33,7 @@ Availability of infrastructure:
  
  - name: "Result of combo with infrastructure-receiver is stageable"
    body: |
-      expect stageable [infrastructure empty];
+      expect stageable[] [infrastructure empty];
       
       pass[];
    eventually: fail
