@@ -5,8 +5,18 @@
 # allow output to be printed for *one* group of rules at a time. This, or something similar, may be
 # necessary to make sure that the rules that we're intentionally creating, and sometimes
 # intentionally failing, inside these tests ... don't screw up your TAP output / conformance scores.
+#---
+# FIXME: I dislike that some of these tests are nested within one-another. Can be misleading.
 
 On rules, meaning, and consistency:
+ - name: "A `pass` routine is provided within Rules"
+   body: pass[]
+   eventually: fail
+   
+ - name: "A `fail` routine is provided within Rules"
+   body: expect stageable [fail]
+   eventually: fail
+   
  - name: "A `specification` bag is injected into Rulebooks"
    body: |
       implementation void[]
@@ -38,6 +48,24 @@ On rules, meaning, and consistency:
  - name: "The `rule` procedure consumes an Execution as a block"
    body: |
       implementation void[]
-       [ specification rule[] “Be awesome” {}                                                      ]
+       [ specification rule[] “The `rule` procedure results in a test being dispatched” { pass[] } ]
+       [ pass[]                                                                                    ]
+   eventually: fail
+   
+ - name: "An `eventually` procedure is exposed on `rule`s"
+   body: |
+      implementation void[]
+       [ specification rule[] “... meaningless ...” { pass[] }
+         eventually                                                                                ]
+       [ pass[]                                                                                    ]
+   eventually: fail
+   
+ - name: "The `eventually` procedure consumes an Execution as well"
+   body: |
+      implementation void[]
+       [ specification rule[]
+         “The `eventually` block exposes locals linked to the `rule` it's applied to”
+          { non.existent.label! }
+         eventually { pass[] } ]
        [ pass[]                                                                                    ]
    eventually: fail
