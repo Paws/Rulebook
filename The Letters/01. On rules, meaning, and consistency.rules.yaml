@@ -12,46 +12,46 @@ On rules, meaning, and consistency:
  - name: "A `pass` routine is provided within Rules"
    body: pass[]
    eventually: fail
-   
+
  - name: "A `fail` routine is provided within Rules"
    body: expect stageable [fail]
    eventually: fail
-   
+
  - name: "A `specification` bag is injected into Rulebooks"
    body: |
       implementation void[]
        [ specification                                                                             ]
        [ pass[]                                                                                    ]
    eventually: fail
-   
+
  - name: "The `specification` bag exposes the `rule` procedure"
    body: |
       implementation void[]
        [ specification rule                                                                        ]
        [ pass[]                                                                                    ]
    eventually: fail
-   
+
  - name: "The `rule` procedure follows the coproduction pattern, consuming a caller and resulting"
    body: |
       implementation void[]
        [ specification rule[]                                                                      ]
        [ pass[]                                                                                    ]
    eventually: fail
-   
+
  - name: "The `rule` procedure consumes a title for the rule"
    body: |
       implementation void[]
        [ specification rule[] “Be awesome”                                                         ]
        [ pass[]                                                                                    ]
    eventually: fail
-   
+
  - name: "The `rule` procedure consumes an Execution as a block"
    body: |
       implementation void[]
        [ specification rule[] “The `rule` procedure results in a test being dispatched” { pass[] } ]
        [ pass[]                                                                                    ]
    eventually: fail
-   
+
  - name: "An `eventually` procedure is exposed on `rule`s"
    body: |
       implementation void[]
@@ -59,7 +59,7 @@ On rules, meaning, and consistency:
          eventually                                                                                ]
        [ pass[]                                                                                    ]
    eventually: fail
-   
+
  - name: "The `eventually` procedure consumes an Execution as well"
    body: |
       implementation void[]
